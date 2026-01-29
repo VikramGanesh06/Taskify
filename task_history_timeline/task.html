@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
 <html class="dark" lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Task History Timeline</title>
+    <title>History | Taskify</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
     <link
@@ -17,17 +16,15 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#2563eb", /* Updated Blue */
-                        "primary-dark": "#4f46e5", /* Indigo */
-                        "background-light": "#F9FAFB", /* Soft Off-White */
+                        "primary": "#2563eb",
+                        "primary-dark": "#4f46e5",
+                        "background-light": "#F9FAFB",
                         "background-dark": "#101922",
                         "card-light": "#FFFFFF",
-                        "text-headline": "#0F172A", /* Deep Navy */
-                        "text-body": "#475569", /* Muted Gray */
+                        "text-headline": "#0F172A",
+                        "text-body": "#475569",
                     },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"]
-                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
                     boxShadow: {
                         'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
                         'glow': '0 0 20px rgba(37, 99, 235, 0.15)',
@@ -41,16 +38,13 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        /* Custom scroll-snap styling */
         .snap-container {
             scroll-snap-type: y mandatory;
             scrollbar-width: none;
-            /* Firefox */
         }
 
         .snap-container::-webkit-scrollbar {
             display: none;
-            /* Chrome, Safari, Opera */
         }
 
         .snap-item {
@@ -82,22 +76,15 @@
 
         .mesh-gradient {
             background-color: #F9FAFB;
-            background-image:
-                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
-                radial-gradient(at 50% 100%, rgba(37, 99, 235, 0.03) 0px, transparent 50%);
+            background-image: radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%), radial-gradient(at 50% 100%, rgba(37, 99, 235, 0.03) 0px, transparent 50%);
             background-attachment: fixed;
         }
 
         .dark .mesh-gradient {
             background-color: #101922;
-            background-image:
-                radial-gradient(at 0% 0%, rgba(43, 141, 238, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(43, 141, 238, 0.05) 0px, transparent 50%);
+            background-image: radial-gradient(at 0% 0%, rgba(43, 141, 238, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(43, 141, 238, 0.05) 0px, transparent 50%);
         }
 
-        /* Animation Keyframes */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -123,7 +110,6 @@
         }
     </style>
     <script>
-        // Check local storage or system preference
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
         } else {
@@ -134,7 +120,6 @@
 
 <body class="mesh-gradient font-display text-text-headline dark:text-white transition-colors duration-300">
     <div class="relative flex h-screen w-full flex-col overflow-hidden">
-        <!-- Header Section (TopNavBar) -->
         <header
             class="z-50 flex items-center justify-between border-b border-slate-200 dark:border-white/5 bg-white/80 dark:bg-background-dark/80 px-4 py-4 backdrop-blur-md lg:px-20 transition-colors duration-300">
             <div class="flex items-center gap-12">
@@ -142,29 +127,18 @@
                     class="flex items-center gap-3 hover:opacity-80 transition-opacity">
                     <div
                         class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/20">
-                        <span class="material-symbols-outlined text-white">timeline</span>
-                    </div>
+                        <span class="material-symbols-outlined text-white">timeline</span></div>
                     <h2 class="text-xl font-bold tracking-tight text-text-headline dark:text-white">Taskify</h2>
                 </a>
                 <nav class="hidden items-center gap-4 md:flex">
-                    <a class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-slate-500 hover:text-primary dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white transition-colors"
-                        href="../hero_&_header_section/Home.html">
-                        <span class="material-symbols-outlined text-[18px]">home</span>
-                        <span>Home</span>
-                    </a>
-                    <a class="flex items-center gap-2 rounded-lg bg-white border border-slate-200 dark:bg-white/5 dark:border-none px-4 py-2 text-sm font-medium text-primary dark:text-white ring-1 ring-slate-100 dark:ring-white/10 shadow-sm"
-                        href="../task_input_workspace/input.html">
-                        <span class="material-symbols-outlined text-[18px]">dashboard</span>
-                        <span>Workspace</span>
-                    </a>
-                    <a class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-slate-500 hover:text-primary dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white transition-colors"
-                        href="#">
-                        <span class="material-symbols-outlined text-[18px]">settings</span>
-                        <span>Settings</span>
-                    </a>
+                    <a class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-slate-500 hover:text-primary dark:text-white/60 dark:hover:bg-white/5 transition-colors"
+                        href="../hero_&_header_section/Home.html"><span
+                            class="material-symbols-outlined text-[18px]">home</span><span>Home</span></a>
+                    <a class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-slate-500 hover:text-primary dark:text-white/60 dark:hover:bg-white/5 transition-colors"
+                        href="../task_input_workspace/input.html"><span
+                            class="material-symbols-outlined text-[18px]">dashboard</span><span>Workspace</span></a>
                 </nav>
             </div>
-
             <div class="flex items-center gap-4">
                 <div class="hidden lg:block relative">
                     <span
@@ -175,79 +149,57 @@
                 </div>
                 <a class="flex h-10 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary-dark px-3 sm:px-5 text-sm font-bold text-white shadow-lg shadow-primary/20 transition-transform active:scale-95"
                     href="../task_input_workspace/input.html">
-                    <span class="material-symbols-outlined text-[20px]">add</span>
-                    <span class="hidden sm:inline">New Task</span>
+                    <span class="material-symbols-outlined text-[20px]">add</span><span class="hidden sm:inline">New
+                        Session</span>
                 </a>
                 <div
-                    class="h-10 w-10 overflow-hidden rounded-full border-2 border-white dark:border-white/10 shadow-lg">
-                    <img alt="Profile" class="h-full w-full object-cover" data-alt="User profile avatar close up"
-                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1760&auto=format&fit=crop" />
-                </div>
+                    class="h-10 w-10 rounded-full border-2 border-white dark:border-white/10 shadow-lg bg-slate-200 flex items-center justify-center text-slate-500 font-bold">
+                    U</div>
             </div>
         </header>
-
         <main class="snap-container relative flex-1 overflow-y-auto overflow-x-hidden scroll-smooth pb-20 pt-10">
-            <!-- Timeline Line -->
             <div class="fixed bottom-0 left-[28px] top-0 w-px bg-slate-200 dark:bg-white/10 lg:left-8"></div>
-
             <div class="relative mx-auto max-w-5xl px-4 lg:px-0">
-                <!-- Page Heading -->
                 <div class="mb-16 flex flex-col gap-2 pl-8 lg:pl-12">
                     <span class="text-xs font-bold uppercase tracking-[0.2em] text-primary">Chronology</span>
-                    <h1 class="text-4xl font-black tracking-tight text-text-headline dark:text-white lg:text-6xl">Task
-                        History</h1>
-                    <p class="max-w-md text-lg text-text-body dark:text-white/40">A precision record of your
-                        architectural inputs and
-                        automated formatting workflows.</p>
+                    <h1 class="text-4xl font-black tracking-tight text-text-headline dark:text-white lg:text-6xl">
+                        Session History</h1>
+                    <p class="max-w-md text-lg text-text-body dark:text-white/40 font-light">A precision record of your
+                        intelligence workflows and automated formatting history.</p>
                 </div>
-
-                <div id="historyContainer" class="flex flex-col">
-                </div>
+                <div id="historyContainer" class="flex flex-col"></div>
             </div>
         </main>
-
-        <!-- Footer -->
         <footer class="border-t border-slate-200 dark:border-slate-800 py-12 px-6">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="flex items-center gap-3 grayscale opacity-50">
-                    <div class="bg-slate-400 size-6 rounded flex items-center justify-center text-white">
-                        <span class="material-symbols-outlined text-sm">auto_awesome</span>
-                    </div>
+                    <div class="bg-slate-400 size-6 rounded flex items-center justify-center text-white"><span
+                            class="material-symbols-outlined text-sm">auto_awesome</span></div>
                     <h2 class="text-sm font-black tracking-tighter">TASKIFY</h2>
                 </div>
-                <div class="flex flex-wrap justify-center gap-8">
-                    <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
-                        href="#">Privacy Policy</a>
-                    <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
-                        href="#">Terms of Service</a>
-                    <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
-                        href="#">Cookie Policy</a>
-                </div>
-                <div class="flex items-center gap-6">
-                    <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
-                            class="material-symbols-outlined">public</span></a>
-                    <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
-                            class="material-symbols-outlined">alternate_email</span></a>
-                </div>
+                <div class="flex flex-wrap justify-center gap-8"><a
+                        class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                        href="#">Privacy Policy</a><a
+                        class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                        href="#">Terms of Service</a><a
+                        class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                        href="#">Cookie Policy</a></div>
+                <div class="flex items-center gap-6"><a class="text-slate-400 hover:text-primary transition-colors"
+                        href="#"><span class="material-symbols-outlined">public</span></a><a
+                        class="text-slate-400 hover:text-primary transition-colors" href="#"><span
+                            class="material-symbols-outlined">alternate_email</span></a></div>
             </div>
             <p class="text-center text-[10px] text-slate-500 mt-12 uppercase tracking-[0.3em]">© 2024 Taskify.
-                Minimalist design for maximum productivity.</p>
+                Professional Productivity Engineering.</p>
         </footer>
-
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const history = JSON.parse(localStorage.getItem('taskflow_history') || '[]');
                 const container = document.getElementById('historyContainer');
-
                 if (history.length === 0) {
-                    container.innerHTML = `
-                        <div class="pl-8 lg:pl-12 opacity-50">
-                            <p class="text-text-body dark:text-white/50 italic">No history found. Start a new task to see it here.</p>
-                        </div>
-                    `;
+                    container.innerHTML = `<div class="pl-8 lg:pl-12 opacity-50"><p class="text-text-body dark:text-white/50 italic">No history detected.</p></div>`;
                     return;
                 }
-
                 container.innerHTML = history.map((item, index) => `
                     <div class="snap-item relative mb-24 flex flex-col items-start gap-8 history-item-hidden" style="transition-delay: ${index * 100}ms">
                         <div class="absolute -left-[5px] top-4 h-3 w-3 rounded-full bg-primary ring-4 ring-white dark:ring-primary/20 lg:-left-[9px] shadow-lg"></div>
@@ -261,23 +213,15 @@
                                                 <h3 class="text-xl font-bold text-text-headline dark:text-white">${item.title}</h3>
                                                 <div class="flex items-center gap-2">
                                                     <span class="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary">${item.status}</span>
-                                                    <button onclick="deleteTask(${item.id})" class="text-slate-400 dark:text-white/40 hover:text-red-500 dark:hover:text-red-500 transition-colors" title="Delete Task">
-                                                        <span class="material-symbols-outlined text-[18px]">delete</span>
-                                                    </button>
+                                                    <button onclick="deleteTask(${item.id})" class="text-slate-400 dark:text-white/40 hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
                                                 </div>
                                             </div>
-                                            <p class="font-mono text-sm leading-relaxed text-text-body dark:text-white/50">
-                                                Snippet: "${item.snippet}"
-                                            </p>
+                                            <p class="font-mono text-xs leading-relaxed text-text-body dark:text-white/50 truncate max-w-lg">${item.snippet}</p>
                                         </div>
                                         <div class="mt-6 flex items-center justify-between border-t border-slate-100 dark:border-white/5 pt-4">
-                                            <div class="flex -space-x-2">
-                                                <div class="h-6 w-6 rounded-full border border-white dark:border-background-dark bg-slate-200 dark:bg-white/10"></div>
-                                                <div class="h-6 w-6 rounded-full border border-white dark:border-background-dark bg-slate-300 dark:bg-white/20"></div>
-                                            </div>
-                                            <a class="group flex items-center gap-2 text-sm font-bold text-primary transition-colors hover:text-primary-dark dark:hover:text-white" href="../formatted_output_result/Format.html">
-                                                <span>View Full Details</span>
-                                                <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+                                            <div class="flex -space-x-2"><div class="h-6 w-6 rounded-full border border-white dark:border-background-dark bg-slate-200"></div><div class="h-6 w-6 rounded-full border border-white dark:border-background-dark bg-primary/20"></div></div>
+                                            <a class="group flex items-center gap-2 text-sm font-bold text-primary transition-colors hover:text-primary-dark" href="../formatted_output_result/Format.html">
+                                                <span>View Analytics</span><span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
                                             </a>
                                         </div>
                                     </div>
@@ -286,25 +230,15 @@
                         </div>
                     </div>
                 `).join('');
-
-                // Animation Observer
                 const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('history-item-visible');
-                            entry.target.classList.remove('history-item-hidden');
-                        }
-                    });
+                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('history-item-visible'); });
                 }, { threshold: 0.1 });
-
                 document.querySelectorAll('.snap-item').forEach(el => observer.observe(el));
             });
-
             function deleteTask(id) {
-                if (confirm('Are you sure you want to delete this task?')) {
-                    let history = JSON.parse(localStorage.getItem('taskflow_history') || '[]');
-                    history = history.filter(item => item.id !== id);
-                    localStorage.setItem('taskflow_history', JSON.stringify(history));
+                if (confirm('Delete session?')) {
+                    let h = JSON.parse(localStorage.getItem('taskflow_history') || '[]');
+                    localStorage.setItem('taskflow_history', JSON.stringify(h.filter(i => i.id !== id)));
                     location.reload();
                 }
             }
