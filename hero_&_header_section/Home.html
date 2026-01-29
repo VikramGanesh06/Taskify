@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Taskify - Format your chaos into clarity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563eb", /* Updated Blue */
+                        "primary-dark": "#4f46e5", /* Indigo */
+                        "background-light": "#F9FAFB", /* Soft Off-White */
+                        "background-dark": "#101922",
+                        "card-light": "#FFFFFF",
+                        "text-headline": "#0F172A", /* Deep Navy */
+                        "text-body": "#475569", /* Muted Gray */
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+                        'glow': '0 0 20px rgba(37, 99, 235, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .glass-header {
+            background: rgba(16, 25, 34, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mesh-gradient {
+            background-color: #F9FAFB;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(37, 99, 235, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .dark .mesh-gradient {
+            background-color: #101922;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(43, 141, 238, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(43, 141, 238, 0.05) 0px, transparent 50%);
+        }
+
+        /* Cinematic Entrance Animations */
+        @keyframes blurInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+                filter: blur(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .animate-reveal {
+            animation: blurInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0;
+            /* Star hidden */
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+    </style>
+    <script>
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+    </script>
+</head>
+
+<body class="mesh-gradient min-h-screen font-display selection:bg-primary/30 transition-colors duration-500">
+    <!-- Navigation -->
+    <header class="glass-header fixed top-4 inset-x-4 md:inset-x-12 h-20 rounded-2xl flex items-center px-8 z-[100]">
+        <div class="flex items-center gap-3">
+            <div
+                class="size-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20">
+                <svg class="size-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                        d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z"
+                        fill="currentColor" fill-rule="evenodd"></path>
+                    <path clip-rule="evenodd"
+                        d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z"
+                        fill="currentColor" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+            <h2 class="text-text-headline dark:text-white text-xl font-bold tracking-tight">Taskify</h2>
+        </div>
+
+        <div class="ml-auto flex items-center gap-4">
+            <button onclick="toggleTheme()"
+                class="flex items-center justify-center size-10 rounded-full bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all text-text-headline dark:text-white border border-slate-200 dark:border-white/10">
+                <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+            </button>
+            <button onclick="openModal()"
+                class="hidden sm:flex items-center justify-center px-6 h-10 bg-text-headline dark:bg-white text-white dark:text-text-headline text-sm font-bold rounded-xl hover:scale-105 transition-transform">
+                Explore Taskify
+            </button>
+        </div>
+    </header>
+
+    <main class="relative pt-44 pb-32">
+        <!-- Floating Mesh Accents -->
+        <div class="absolute top-1/4 -left-20 size-96 bg-primary/20 blur-[120px] rounded-full pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-1/4 -right-20 size-96 bg-primary-dark/10 blur-[120px] rounded-full pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 text-center space-y-12">
+            <!-- Badge -->
+            <div class="flex justify-center animate-reveal">
+                <div
+                    class="px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-[0.3em]">
+                    Intelligent Formatting v2.0
+                </div>
+            </div>
+            <!-- Main Title -->
+            <h1
+                class="text-5xl md:text-7xl font-black tracking-tight leading-tight text-text-headline dark:text-white animate-reveal delay-200">
+                Turn Chaos into <br />
+                <span class="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">Professional
+                    Clarity</span>
+            </h1>
+            <!-- Description -->
+            <p
+                class="text-lg md:text-xl text-text-body dark:text-slate-400 max-w-2xl mx-auto font-light leading-relaxed animate-reveal delay-300">
+                Taskify transforms your rough brain dumps into impeccably formatted, corporate-ready reports instantly.
+                Stop fighting with formatting.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-reveal delay-400">
+                <a class="w-full sm:w-auto flex items-center justify-center gap-2 min-w-[200px] h-14 bg-gradient-to-r from-primary to-primary-dark text-white text-lg font-bold rounded-xl hover:scale-105 transition-transform shadow-lg shadow-primary/20"
+                    href="../task_input_workspace/input.html">
+                    Try for Free
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </a>
+                <button
+                    class="w-full sm:w-auto flex items-center justify-center gap-2 min-w-[200px] h-14 bg-white border border-slate-200 text-text-headline dark:bg-white/5 dark:border-white/10 dark:text-white text-lg font-bold rounded-xl hover:bg-slate-50 dark:hover:bg-white/10 transition-colors shadow-sm">
+                    Watch Demo
+                    <span class="material-symbols-outlined">play_circle</span>
+                </button>
+            </div>
+            <!-- Social Proof / Avatars -->
+            <div class="pt-16 space-y-4">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Trusted by builders at</p>
+                <div class="flex items-center justify-center -space-x-3">
+                    <div class="size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-slate-700 bg-cover bg-center"
+                        data-alt="Professional user avatar 1"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDViv_t1eq41rTACTJXz5uUu2C08SCBSImxJlGQHMx6MZiEDxMtYkdpiw8Qez6-W9fg1AyuYPaVFu3FItZm6CGZx0zXSJgnlfaLxNI69Wjmdn0W7CdBVihIvwKnaa1WQmCSZkseqGB1Fq_nE-t--pE14o06Vxvvz5Phyx1ojNHUZE4L4Y3SYNsSy5D0ykUCh3wL_QAQNmSAlAiMPZf5jTP95ay1_AswQuV5KUCIG3rl4GJwTZBLY3lQimtoW0rRnh9Y7r278g_tpS8N")'>
+                    </div>
+                    <div class="size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-slate-700 bg-cover bg-center"
+                        data-alt="Professional user avatar 2"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAcILGJNiO3NP6H5BEm-dan3gnY3jXUBi6bRCEZLOxLHBbEYIWR2FOUF3frkrYMCL9MqwrcOpUTbBOtzelsz_mevbdngskdxiC5MSkcl-i4rnMWhxIIANkk0iVsvzajq_2PrbXJBVrIyOPpA3IfICLVVBl5Gvr_ZiYwjA325zqf7267xqxAX7soid2eE01C4a2NDyVm7l4tW92r9_eWOp3kP-wvIU19LhNd9ceFYNOIJxjLWBD-4AG4mK7q6aIa_cvLw3AwP2_Z0xxY")'>
+                    </div>
+                    <div class="size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-slate-700 bg-cover bg-center"
+                        data-alt="Professional user avatar 3"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBWP57rRGdwX6rInZ8m_ISCRTiTDKKBC6lUaHuSLz_n6TzLxWRvMnoSgKG0TYgb5inzCQROm5VXn8hxhfWCxpvd9gKGeg_71w7wWhhDx3mo1EVhLty6bjCmmnvcZF_78gtgRxtMlp5OXDDVgm6U2CXmCB_dxVkekR8hCY6GAWejro7daTafGYNRNFP_0pbDqifQSo8uyZ3XyBSoY3WR7lmB_fH-dkmAuYa5oMaSKVLgIVFu0UWXuZK7whoHit39p3JvEGvzF_HMfbOM")'>
+                    </div>
+                    <div class="size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-slate-700 bg-cover bg-center"
+                        data-alt="Professional user avatar 4"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC_Cp7rUCbq1t0q8W9q3cHBvPq_aRMvRZfKWKhMlFaiTCXwgKIKqr7DbrnLkzRYa1bHNQQdZbMjHdAPAkg6I20l4m2Uv7djlNhkYQ_GGSS3JreguE11q5_KD5Ta5a_nplDyRk2kydpc9waroErUPdQZVHHLrpsljcxokoP511O_VxbStAvwWERTUMshlCNr-nI2KcU5qxs19EGUUSG-ucdx8bm8-HRNi0aDhXbTp6voHwReINywNQpyA2VGm3PQS222OJLq4zbnYnCj")'>
+                    </div>
+                    <div
+                        class="size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
+                        +2k
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Preview Section (Sneak Peek) -->
+    <section class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="relative group">
+                <div
+                    class="absolute -inset-1 bg-gradient-to-r from-primary to-primary-dark rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                </div>
+                <div
+                    class="relative bg-card-light dark:bg-[#1a2530] rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xl backdrop-blur-sm">
+                    <div
+                        class="h-8 bg-slate-50 border-b border-slate-100 dark:border-white/5 dark:bg-slate-800/50 flex items-center px-4 gap-1.5">
+                        <div class="size-2.5 rounded-full bg-red-500/80"></div>
+                        <div class="size-2.5 rounded-full bg-amber-500/80"></div>
+                        <div class="size-2.5 rounded-full bg-emerald-500/80"></div>
+                    </div>
+                    <div class="p-8 md:p-12">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div class="space-y-4 opacity-70">
+                                <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4"></div>
+                                <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
+                                <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-5/6"></div>
+                                <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-2/3"></div>
+                            </div>
+                            <div class="space-y-4 border-l border-slate-200 dark:border-slate-700 pl-12">
+                                <div class="h-4 bg-primary/20 rounded w-1/2"></div>
+                                <div class="h-4 bg-primary/20 rounded w-full"></div>
+                                <div class="h-4 bg-primary/20 rounded w-3/4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex items-center gap-3 grayscale opacity-50">
+                <div class="bg-slate-400 size-6 rounded flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                </div>
+                <h2 class="text-sm font-black tracking-tighter">TASKIFY</h2>
+            </div>
+            <div class="flex flex-wrap justify-center gap-8">
+                <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                    href="#">Privacy Policy</a>
+                <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                    href="#">Terms of Service</a>
+                <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                    href="#">Cookie Policy</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
+                        class="material-symbols-outlined">public</span></a>
+                <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
+                        class="material-symbols-outlined">alternate_email</span></a>
+            </div>
+        </div>
+        <p class="text-center text-[10px] text-slate-500 mt-12 uppercase tracking-[0.3em]">© 2024 Taskify.
+            Minimalist design for maximum productivity.</p>
+    </footer>
+
+    <!-- Simple Modal Overlay -->
+    <div id="exploreModal"
+        class="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-slate-900/40 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+        <div
+            class="bg-white dark:bg-background-dark w-full max-w-lg rounded-3xl p-8 shadow-2xl border border-slate-200 dark:border-white/10 scale-95 transition-transform duration-300">
+            <div class="mb-6">
+                <h3 class="text-2xl font-black text-text-headline dark:text-white mb-2">Ready to Experience Taskify?
+                </h3>
+                <p class="text-text-body dark:text-slate-400">Jump into your personal workspace and start turning your
+                    chaos into clarity today.</p>
+            </div>
+            <div class="flex flex-col gap-3">
+                <a href="../task_input_workspace/input.html"
+                    class="flex items-center justify-center h-14 bg-primary text-white font-bold rounded-2xl hover:bg-primary-dark transition-colors">
+                    Start Exploring Now
+                </a>
+                <button onclick="closeModal()"
+                    class="h-14 bg-slate-100 dark:bg-white/5 text-text-headline dark:text-white font-bold rounded-2xl hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                    Maybe Later
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            const modal = document.getElementById('exploreModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-95');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('exploreModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.add('scale-95');
+        }
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+
+</html>

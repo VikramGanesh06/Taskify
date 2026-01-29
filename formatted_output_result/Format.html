@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Formatted Output Result - TaskFormat</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563eb", /* Updated Blue */
+                        "primary-dark": "#4f46e5", /* Indigo */
+                        "background-light": "#F9FAFB", /* Soft Off-White */
+                        "background-dark": "#101922",
+                        "card-light": "#FFFFFF",
+                        "text-headline": "#0F172A", /* Deep Navy */
+                        "text-body": "#475569", /* Muted Gray */
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+                        'glow': '0 0 20px rgba(37, 99, 235, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .glass-effect {
+            background: rgba(25, 38, 51, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #233648;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mesh-gradient {
+            background-color: #F9FAFB;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(37, 99, 235, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .dark .mesh-gradient {
+            background-color: #101922;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(43, 141, 238, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(43, 141, 238, 0.05) 0px, transparent 50%);
+        }
+    </style>
+    <script>
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+
+<body
+    class="mesh-gradient text-text-headline dark:text-white min-h-screen selection:bg-primary/30 transition-colors duration-300">
+    <div class="relative flex flex-col min-h-screen">
+        <!-- Top Navigation -->
+        <header
+            class="flex items-center justify-between border-b border-solid border-slate-200 dark:border-white/10 px-8 py-4 sticky top-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md z-50 transition-colors duration-300">
+            <a href="../hero_&_header_section/Home.html"
+                class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                <div class="text-primary">
+                    <svg class="size-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"
+                            fill="currentColor" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold tracking-tight">Taskify</h2>
+            </a>
+            <div class="flex items-center gap-8">
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium hover:text-primary transition-colors"
+                        href="../task_input_workspace/input.html">Workspace</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors"
+                        href="../task_history_timeline/task.html">History</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Settings</a>
+                </nav>
+                <div class="h-10 w-10 rounded-full border-2 border-primary/20 bg-cover bg-center"
+                    data-alt="User profile avatar placeholder"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnes2Ar3sCgzGFj633q0NKVlrxCMuzcgIPmvGiLUZ4Z4LeCKt6lL9nyLD_1uY-K3K1OFNiaTwOLBQYVFUpJcdYt3Fw35YjFhrtf8Fwr80g8muQ5zVq-ZJhCXB2N-yffEVArLaEvYmdWfZHnZhL-UiKvTBUjWsXIq7sw_8zW-QcsuSJe4XWVi3Kt4mukVNbcSMLyMRirArTgRXWWtxnhG08WP5C9OqMQSCA3P1gzbX4WFhm4SzRWrnmfQdn-mzCP8ps1uVlMK1k_clC");'>
+                </div>
+            </div>
+        </header>
+        <main class="flex-1 flex flex-col items-center justify-start py-12 px-6">
+            <!-- Headline Section -->
+            <div class="max-w-4xl w-full text-center mb-10 fade-in-up">
+                <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Formatted Result</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+                    Your tasks have been analyzed and polished. Review the optimized structure below.
+                </p>
+            </div>
+            <!-- Action Bar (Minimal) -->
+            <div class="max-w-4xl w-full mb-6 fade-in-up" style="animation-delay: 0.1s;">
+                <div class="flex justify-between items-center px-2">
+                    <div class="flex gap-2">
+                        <button
+                            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all text-sm font-medium">
+                            <span class="material-symbols-outlined text-[20px]">edit</span>
+                            Edit Output
+                        </button>
+                        <button
+                            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all text-sm font-medium">
+                            <span class="material-symbols-outlined text-[20px]">share</span>
+                            Export
+                            <button onclick="clearAllResult()"
+                                class="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 hover:text-red-400 transition-all text-sm font-medium border border-red-500/20">
+                                <span class="material-symbols-outlined text-[20px]">delete_sweep</span>
+                                Clear
+                            </button>
+                    </div>
+                    <script>
+                        function clearAllResult() {
+                            if (confirm('Are you sure you want to clear this result?')) {
+                                localStorage.removeItem('taskflow_input');
+                                window.location.href = '../task_input_workspace/input.html';
+                            }
+                        }
+                    </script>
+                    <div class="text-xs font-mono text-slate-500 uppercase tracking-widest">
+                        Status: Ready
+                    </div>
+                </div>
+            </div>
+            <!-- Central Content Card -->
+            <div class="max-w-4xl w-full fade-in-up" style="animation-delay: 0.2s;">
+                <div class="glass-effect rounded-xl overflow-hidden shadow-2xl relative group">
+                    <!-- Decorative Gradient Top -->
+                    <div class="h-1 w-full bg-gradient-to-r from-primary via-blue-400 to-indigo-500"></div>
+                    <div class="p-6 md:p-12">
+                        <!-- List Content -->
+                        <div class="space-y-6 custom-scrollbar max-h-[500px] overflow-y-auto pr-4">
+                            <div class="border-b border-slate-700/30 pb-4">
+                                <h3 class="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Priority
+                                    Tasks</h3>
+                                <ul id="priorityTaskList" class="space-y-4">
+                                    <li class="flex items-start gap-4">
+                                        <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                                        <div>
+                                            <p class="text-lg font-medium leading-relaxed">Processing your data...</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Copy Button Footer -->
+                        <div class="mt-12 flex justify-end">
+                            <button onclick="window.copyToClipboard()"
+                                class="relative group/btn flex items-center gap-3 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-semibold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                                <span class="material-symbols-outlined">content_copy</span>
+                                <span>Copy to Clipboard</span>
+                                <!-- Tooltip Effect Simulation -->
+                                <div
+                                    class="absolute -top-12 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs py-1 px-3 rounded opacity-0 group-active/btn:opacity-100 transition-opacity pointer-events-none">
+                                    Copied!
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Secondary Actions -->
+            <div class="max-w-4xl w-full mt-8 flex justify-center gap-12 fade-in-up" style="animation-delay: 0.3s;">
+                <div onclick="clearAllResult()" class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="size-12 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary transition-colors group-hover:text-white">
+                        <span class="material-symbols-outlined">delete</span>
+                    </div>
+                    <span class="text-xs font-medium uppercase tracking-widest text-slate-500">Clear All</span>
+                </div>
+                <a class="flex flex-col items-center gap-3 group cursor-pointer"
+                    href="../task_history_timeline/task.html">
+                    <div
+                        class="size-12 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary transition-colors group-hover:text-white">
+                        <span class="material-symbols-outlined">history</span>
+                    </div>
+                    <span class="text-xs font-medium uppercase tracking-widest text-slate-500">History</span>
+                </a>
+                <div class="flex flex-col items-center gap-3 group cursor-pointer">
+                    <div
+                        class="size-12 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary transition-colors group-hover:text-white">
+                        <span class="material-symbols-outlined">download</span>
+                    </div>
+                    <span class="text-xs font-medium uppercase tracking-widest text-slate-500">Download</span>
+                </div>
+            </div>
+        </main>
+        <!-- Toast Notification (Absolute for visual reference) -->
+        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-full shadow-2xl transition-all translate-y-24 opacity-0 pointer-events-none"
+            id="copy-toast">
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+            <p class="text-sm font-medium">Copied to clipboard successfully</p>
+        </div>
+        <!-- Footer -->
+        <footer class="border-t border-slate-200 dark:border-slate-800 py-12 px-6">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="flex items-center gap-3 grayscale opacity-50">
+                    <div class="bg-slate-400 size-6 rounded flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                    </div>
+                    <h2 class="text-sm font-black tracking-tighter">TASKIFY</h2>
+                </div>
+                <div class="flex flex-wrap justify-center gap-8">
+                    <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                        href="#">Privacy Policy</a>
+                    <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                        href="#">Terms of Service</a>
+                    <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                        href="#">Cookie Policy</a>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
+                            class="material-symbols-outlined">public</span></a>
+                    <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
+                            class="material-symbols-outlined">alternate_email</span></a>
+                </div>
+            </div>
+            <p class="text-center text-[10px] text-slate-500 mt-12 uppercase tracking-[0.3em]">© 2024 Taskify.
+                Minimalist design for maximum productivity.</p>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rawInput = localStorage.getItem('taskflow_input');
+            const listContainer = document.getElementById('priorityTaskList');
+            const pageTitle = document.querySelector('h1');
+            const pageSubtitle = document.querySelector('main p');
+            let formattedTextForClipboard = "";
+
+            // --- Smart Data Processor ---
+
+            function processData(text) {
+                if (!text || !text.trim()) return { type: 'empty', items: [] };
+
+                const rawLines = text.split(/\n/).map(line => line.trim()).filter(line => line.length > 0);
+                let totalAmount = 0;
+                let expenseCount = 0;
+
+                const processedItems = rawLines.map(line => {
+                    // 1. Strip Common OCR Noise & UI Garbage (Enhanced)
+                    let cleanLine = line
+                        .replace(/^[•\-\*]\s*/, '') // Bullets
+                        .replace(/^\d+[\.\)]\s*/, '') // List numbers
+                        .replace(/\b(RS|rs|Inr|INR)\.?\s*/gi, '₹ ') // Currency
+                        .replace(/[|\]\[{}@#$^&*]/g, '') // Symbols
+                        .replace(/\d{1,2}:\d{2}/, '') // Times
+                        .replace(/\d{1,2}%\s*/, '') // Battery/Status
+                        .trim();
+
+                    // 2. Identify Financial Pattern
+                    const amountMatch = cleanLine.match(/([₹$])\s?(\d+(?:[.,]\d{2,3})?)/);
+                    let amount = null;
+                    let symbol = null;
+
+                    if (amountMatch) {
+                        symbol = amountMatch[1];
+                        let numericPart = amountMatch[2].replace(',', '');
+                        amount = parseFloat(numericPart);
+                        if (!isNaN(amount)) {
+                            totalAmount += amount;
+                            expenseCount++;
+                        }
+                    }
+
+                    // 3. Classify Line Type
+                    let type = 'general';
+                    // Heading detection
+                    if (!amount && cleanLine.length < 35 && cleanLine.length > 2 && !/[0-9]/.test(cleanLine)) {
+                        type = 'heading';
+                    } else if (amount) {
+                        type = 'expense';
+                    }
+                    if (cleanLine.length < 3 && !amount) type = 'garbage';
+
+                    return {
+                        original: line,
+                        clean: cleanLine,
+                        professional: professionalizeText(cleanLine),
+                        amount: amount,
+                        symbol: symbol,
+                        type: type
+                    };
+                }).filter(item => item.type !== 'garbage');
+
+                const isExpenseReport = expenseCount > 0 && (expenseCount >= (processedItems.length / 4));
+
+                return {
+                    type: isExpenseReport ? 'expense' : 'task',
+                    items: processedItems,
+                    total: totalAmount,
+                    symbol: processedItems.find(i => i.symbol)?.symbol || '₹'
+                };
+            }
+
+            function professionalizeText(text) {
+                if (!text) return "";
+                let processed = text.charAt(0).toUpperCase() + text.slice(1);
+                const expansions = {
+                    "w/": "with", "bc": "because", "mtg": "meeting", "mgr": "manager",
+                    "eod": "end of day", "asap": "as soon as possible",
+                    "tba": "to be announced", "re:": "regarding", "im": "I am",
+                    "ive": "I have", "dont": "do not"
+                };
+                for (const [key, value] of Object.entries(expansions)) {
+                    const regex = new RegExp(`\\b${key}\\b`, 'gi');
+                    processed = processed.replace(regex, value);
+                }
+                if (!/[.!?₹$\d]$/.test(processed)) processed += ".";
+                return processed;
+            }
+
+            // --- UI Rendering ---
+
+            const result = processData(rawInput);
+
+            if (result.type === 'empty') {
+                listContainer.innerHTML = `<li class="text-slate-400 italic p-4 text-center">No content found. Please try again.</li>`;
+            } else {
+                if (result.type === 'expense') {
+                    pageTitle.innerText = "Modern Expense Report";
+                    pageSubtitle.innerText = "Cleaned and classified financial summary for professional record-keeping.";
+
+                    const totalWidget = document.createElement('div');
+                    totalWidget.className = "mb-10 p-8 bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 rounded-3xl flex items-center justify-between fade-in-up shadow-sm";
+                    totalWidget.innerHTML = `
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-2">Final Balance</p>
+                            <h2 class="text-4xl font-black text-text-headline dark:text-white">${result.symbol} ${result.total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</h2>
+                        </div>
+                        <div class="hidden sm:block text-right">
+                            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">Total Entries</p>
+                            <p class="text-2xl font-black text-text-headline dark:text-white">${result.items.filter(i => i.type === 'expense').length}</p>
+                        </div>
+                    `;
+                    listContainer.parentNode.insertBefore(totalWidget, listContainer);
+                    formattedTextForClipboard = `MODERN EXPENSE SUMMARY\n======================\n\n`;
+                }
+
+                listContainer.innerHTML = '';
+                result.items.forEach((item, idx) => {
+                    const li = document.createElement('li');
+                    li.className = 'fade-in-up group/item';
+                    li.style.animationDelay = `${idx * 0.05}s`;
+
+                    if (item.type === 'heading') {
+                        li.innerHTML = `
+                            <div class="mt-8 mb-4">
+                                <h3 class="text-sm font-black uppercase tracking-[0.3em] text-primary/80">${item.clean}</h3>
+                                <div class="h-0.5 w-12 bg-primary/30 mt-2"></div>
+                            </div>
+                        `;
+                        formattedTextForClipboard += `\n[ ${item.clean.toUpperCase()} ]\n`;
+                    } else if (item.type === 'expense') {
+                        li.innerHTML = `
+                            <div class="flex items-center gap-6 py-4 border-b border-slate-100 dark:border-white/5 last:border-none">
+                                <div class="size-2.5 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.4)] transition-transform group-hover/item:scale-125"></div>
+                                <div class="flex-1 flex justify-between items-center pr-4">
+                                    <p class="text-lg font-bold text-text-headline dark:text-white transition-colors group-hover/item:text-primary">${item.professional}</p>
+                                    <p class="text-xl font-black text-primary">${item.symbol}${item.amount.toLocaleString()}</p>
+                                </div>
+                            </div>
+                        `;
+                        formattedTextForClipboard += `• ${item.professional}: ${item.symbol}${item.amount}\n`;
+                    } else {
+                        li.innerHTML = `
+                            <div class="flex items-start gap-6 py-4 border-b border-slate-100 dark:border-white/5 last:border-none opacity-80">
+                                <span class="material-symbols-outlined text-slate-400 text-sm mt-1">description</span>
+                                <p class="text-base font-medium text-text-body dark:text-slate-400">${item.professional}</p>
+                            </div>
+                        `;
+                        formattedTextForClipboard += `• ${item.professional}\n`;
+                    }
+                    listContainer.appendChild(li);
+                });
+
+                if (result.type === 'expense') {
+                    formattedTextForClipboard += `\n----------------------\nNET TOTAL: ${result.symbol}${result.total.toLocaleString()}\nDigitized via Taskify AI`;
+                }
+            }
+
+            window.copyToClipboard = function () {
+                if (!formattedTextForClipboard) return;
+                navigator.clipboard.writeText(formattedTextForClipboard).then(() => {
+                    const toast = document.getElementById('copy-toast');
+                    toast.classList.remove('translate-y-24', 'opacity-0');
+                    setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 3000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

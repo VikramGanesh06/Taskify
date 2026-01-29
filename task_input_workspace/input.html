@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Task Input Workspace</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563eb", /* Updated Blue */
+                        "primary-dark": "#4f46e5", /* Indigo */
+                        "background-light": "#F9FAFB", /* Soft Off-White */
+                        "background-dark": "#101922",
+                        "card-light": "#FFFFFF",
+                        "text-headline": "#0F172A", /* Deep Navy */
+                        "text-body": "#475569", /* Muted Gray */
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+                        'glow': '0 0 20px rgba(37, 99, 235, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .glass-card {
+            background: rgba(25, 38, 51, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .button-glow {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .button-glow:hover {
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .subtle-grid {
+            background-image: radial-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .mesh-gradient {
+            background-color: #F9FAFB;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(37, 99, 235, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .dark .mesh-gradient {
+            background-color: #101922;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(43, 141, 238, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(43, 141, 238, 0.05) 0px, transparent 50%);
+        }
+    </style>
+    <script>
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+
+<body
+    class="mesh-gradient min-h-screen flex flex-col font-display text-text-headline dark:text-white selection:bg-primary/30 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <header
+        class="w-full px-8 py-6 flex items-center justify-between border-b border-slate-200 dark:border-white/5 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50 transition-colors duration-300">
+        <a href="../hero_&_header_section/Home.html"
+            class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div
+                class="size-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20">
+                <svg class="size-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                        d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z"
+                        fill="currentColor" fill-rule="evenodd"></path>
+                    <path clip-rule="evenodd"
+                        d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z"
+                        fill="currentColor" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+            <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Taskify</h2>
+        </a>
+        <div class="flex items-center gap-6">
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-slate-400">
+                <a class="hover:text-primary transition-colors" href="../hero_&_header_section/Home.html">Home</a>
+                <a class="text-primary font-bold" href="#">Workspace</a>
+                <a class="hover:text-primary transition-colors" href="../task_history_timeline/task.html">History</a>
+            </nav>
+            <div class="h-6 w-px bg-white/10 hidden md:block"></div>
+            <div class="flex items-center gap-3">
+                <button
+                    class="p-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:text-primary transition-all">
+                    <span class="material-symbols-outlined text-[20px]">settings</span>
+                </button>
+                <div class="size-9 rounded-full bg-cover bg-center ring-2 ring-primary/20 border border-white/10"
+                    data-alt="User profile avatar placeholder"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1-gqXsKkFaklhUGE-A2hu1NsVjFQ67wXjAI_Zk7XYDMaJeDoTg-MJJwbYJYQ3M5ZwHxAOmAbssxG9nkwkZ8yspx9OmmTB4qMef0J3mfFo63IcOtxcs5MhGrBbSFS5W5OfbEjOcDqtzQ6vKg6W6KJSD2JCtWJZ-LAwvMPV-aqcOM4hu3UoMYF5pS9D7Q0aYYR9NidLDjrs5Ppg-1XiW85KTfIYZPpplQF-ZKAJOC2jKYleadqZ-_5MMdfNGGNql_HUL9C_wMiCPzJw");'>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Workspace -->
+    <main
+        class="flex-1 flex flex-col items-center justify-center relative subtle-grid px-6 py-12 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]">
+        <style>
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+        <!-- Hero Section -->
+        <div class="w-full max-w-4xl text-center mb-12">
+            <h1 class="text-slate-900 dark:text-white text-4xl md:text-5xl font-bold tracking-tight mb-4">
+                Refine your daily <span class="text-primary italic">flow.</span>
+            </h1>
+            <p class="text-slate-500 dark:text-slate-400 text-lg max-w-xl mx-auto font-light leading-relaxed">
+                Paste your messy notes, scattered thoughts, or raw task lists and let us format them into a structured
+                masterpiece.
+            </p>
+        </div>
+        <!-- Central Action Card -->
+        <div class="w-full max-w-3xl glass-card rounded-xl shadow-2xl overflow-hidden relative group">
+            <div
+                class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-50">
+            </div>
+            <div class="p-1">
+                <div class="bg-background-light dark:bg-[#15202b] rounded-[calc(1.5rem-4px)] p-2">
+                    <!-- Text Area Container -->
+                    <div class="relative group/textarea">
+                        <textarea id="rawTaskInput"
+                            class="w-full min-h-[300px] md:min-h-[400px] bg-transparent border-none focus:ring-0 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 text-lg font-light p-6 resize-none leading-relaxed transition-all"
+                            placeholder="Type your tasks here...
+
+Example:
+• Morning coffee meeting at 9am
+• Review the Q3 design specs
+• Call Sarah regarding the API integration"></textarea>
+                        <!-- Image Preview Overlay -->
+                        <div id="imagePreviewContainer"
+                            class="hidden absolute inset-0 bg-background-light/95 dark:bg-[#15202b]/95 z-20 flex flex-col items-center justify-center p-6 backdrop-blur-sm transition-all">
+                            <img id="imagePreview" src="" alt="Preview"
+                                class="max-h-[300px] rounded-lg shadow-lg border border-white/10 mb-6 object-contain">
+                            <div class="flex gap-4">
+                                <button onclick="cancelScan()"
+                                    class="px-6 py-2 rounded-xl bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 transition-colors font-medium text-sm">Cancel</button>
+                                <button onclick="performOCR()"
+                                    class="px-6 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 transition-all font-bold text-sm flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">document_scanner</span>
+                                    Scan & Format
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Scanning Loader Overlay -->
+                        <div id="scanningLoader"
+                            class="hidden absolute inset-0 bg-background-dark/80 z-30 flex flex-col items-center justify-center backdrop-blur-md">
+                            <div
+                                class="size-16 w-16 h-16 rounded-full border-4 border-primary/30 border-t-primary animate-spin mb-4">
+                            </div>
+                            <p class="text-white font-medium tracking-widest text-sm uppercase animate-pulse">Scanning
+                                Notes...</p>
+                        </div>
+
+                        <!-- Floating Indicators inside textarea -->
+                        <div class="absolute bottom-6 left-6 flex items-center gap-6 z-10">
+                            <!-- Premium Snap Notes Button -->
+                            <button onclick="document.getElementById('noteUploader').click()"
+                                class="group flex items-center gap-3 rounded-full bg-slate-900/40 px-5 py-2.5 pr-6 text-xs font-bold uppercase tracking-widest text-white ring-1 ring-white/10 backdrop-blur-md transition-all hover:bg-primary hover:ring-primary hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] active:scale-95">
+                                <div
+                                    class="flex size-8 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-white/20">
+                                    <span class="material-symbols-outlined text-[16px]">add_a_photo</span>
+                                </div>
+                                <span>Snap Notes</span>
+                            </button>
+
+                            <!-- Status Indicators (Muted) -->
+                            <div
+                                class="flex items-center gap-4 text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400 dark:text-slate-600 opacity-60 hover:opacity-100 transition-opacity">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    Cloud Synced
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-[14px]">bolt</span>
+                                    AI Ready
+                                </span>
+                            </div>
+                        </div>
+                        <input type="file" id="noteUploader" accept="image/*" class="hidden"
+                            onchange="handleImageUpload(event)">
+                    </div>
+                </div>
+            </div>
+            <!-- Card Footer / Action Bar -->
+            <div
+                class="px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/5 bg-white/5">
+                <div class="flex items-center gap-4">
+                    <div class="flex -space-x-2">
+                        <div class="size-6 rounded-full border border-white/10 bg-slate-800 flex items-center justify-center text-[10px] text-white"
+                            data-alt="Avatar integration 1">A</div>
+                        <div class="size-6 rounded-full border border-white/10 bg-primary flex items-center justify-center text-[10px] text-white"
+                            data-alt="Avatar integration 2">B</div>
+                        <div class="size-6 rounded-full border border-white/10 bg-indigo-600 flex items-center justify-center text-[10px] text-white"
+                            data-alt="Avatar integration 3">C</div>
+                    </div>
+                    <span class="text-xs text-slate-500 dark:text-slate-500 font-medium">3 active integrations
+                        detected</span>
+                </div>
+                <a class="button-glow flex items-center justify-center gap-3 bg-primary text-white px-8 py-4 rounded-xl font-bold tracking-wide text-base min-w-[200px] group/btn cursor-pointer"
+                    onclick="processAndNavigate(event)">
+                    <span
+                        class="material-symbols-outlined text-[20px] transition-transform group-hover/btn:rotate-12">wand_stars</span>
+                    <span>Format Tasks</span>
+                </a>
+                <script>
+                    function handleImageUpload(event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                document.getElementById('imagePreview').src = e.target.result;
+                                document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                            }
+                            reader.readAsDataURL(file);
+                        }
+                    }
+
+                    function cancelScan() {
+                        document.getElementById('imagePreviewContainer').classList.add('hidden');
+                        document.getElementById('noteUploader').value = '';
+                    }
+
+                    async function performOCR() {
+                        const img = document.getElementById('imagePreview').src;
+                        const loader = document.getElementById('scanningLoader');
+
+                        loader.classList.remove('hidden');
+
+                        try {
+                            const worker = await Tesseract.createWorker('eng');
+                            const ret = await worker.recognize(img);
+                            await worker.terminate();
+
+                            let text = ret.data.text;
+
+                            // Advanced OCR Cleaning Heuristics
+                            function cleanNoise(str) {
+                                return str
+                                    .split('\n')
+                                    .map(line => line.trim())
+                                    .filter(line => {
+                                        // Filter out UI elements common in screenshots
+                                        if (/^\d{1,2}[:.]\d{2}$/.test(line)) return false; // Time (12:34)
+                                        if (/^[\dIO]{1,3}%$/.test(line)) return false;    // Battery %
+                                        if (line.length < 3 && !/[\d₹$]/.test(line)) return false; // Random single/double char noise
+                                        if (/^[li!|]{1,3}$/.test(line)) return false;     // Vertical bar noise
+                                        return true;
+                                    })
+                                    .join('\n')
+                                    // Normalize Currency Symbols
+                                    .replace(/\b(RS|rs|Inr|INR)\.?\s*/gi, '₹ ')
+                                    // Merge broken lines
+                                    .replace(/([^\n])\n([^\n])/g, '$1 $2')
+                                    // Normalize paragraphs
+                                    .replace(/\n\s*\n/g, '\n\n');
+                            }
+
+                            const cleanedText = cleanNoise(text);
+
+                            const textarea = document.getElementById('rawTaskInput');
+                            const currentValue = textarea.value;
+                            textarea.value = currentValue ? currentValue + "\n\n" + cleanedText : cleanedText;
+
+                            cancelScan();
+                        } catch (err) {
+                            console.error(err);
+                            alert("Failed to scan image. Please try again.");
+                        } finally {
+                            loader.classList.add('hidden');
+                        }
+                    }
+
+                    function processAndNavigate(e) {
+                        e.preventDefault();
+                        const input = document.getElementById('rawTaskInput').value;
+
+                        if (!input.trim()) return;
+
+                        localStorage.setItem('taskflow_input', input);
+
+                        // Add to History Line
+                        const historyItem = {
+                            id: Date.now(),
+                            date: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }),
+                            title: "Formatted Task Session",
+                            snippet: input.substring(0, 100) + (input.length > 100 ? "..." : ""),
+                            status: "Success"
+                        };
+
+                        let history = JSON.parse(localStorage.getItem('taskflow_history') || '[]');
+                        history.unshift(historyItem);
+                        localStorage.setItem('taskflow_history', JSON.stringify(history));
+
+                        window.location.href = "../formatted_output_result/Format.html";
+                    }
+                </script>
+            </div>
+        </div>
+        <!-- Shortcuts / Helper Info -->
+        <div class="mt-8 hidden md:flex items-center gap-6 text-slate-500 dark:text-slate-600 text-sm">
+            <div class="flex items-center gap-2">
+                <kbd
+                    class="px-2 py-1 rounded bg-slate-200 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-[10px]">⌘</kbd>
+                <kbd
+                    class="px-2 py-1 rounded bg-slate-200 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-[10px]">ENTER</kbd>
+                <span class="ml-1">to quick format</span>
+            </div>
+            <div class="h-4 w-px bg-white/5"></div>
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">info</span>
+                <span>Supports Markdown</span>
+            </div>
+        </div>
+    </main>
+    <!-- Visual Accents -->
+    <div class="fixed top-1/4 -left-20 size-80 bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="fixed bottom-1/4 -right-20 size-80 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none">
+    </div>
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex items-center gap-3 grayscale opacity-50">
+                <div class="bg-slate-400 size-6 rounded flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                </div>
+                <h2 class="text-sm font-black tracking-tighter">TASKIFY</h2>
+            </div>
+            <div class="flex flex-wrap justify-center gap-8">
+                <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                    href="#">Privacy Policy</a>
+                <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                    href="#">Terms of Service</a>
+                <a class="text-xs font-medium text-slate-500 hover:text-primary transition-colors uppercase tracking-widest"
+                    href="#">Cookie Policy</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
+                        class="material-symbols-outlined">public</span></a>
+                <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
+                        class="material-symbols-outlined">alternate_email</span></a>
+            </div>
+        </div>
+        <p class="text-center text-[10px] text-slate-500 mt-12 uppercase tracking-[0.3em]">© 2024 Taskify.
+            Minimalist design for maximum productivity.</p>
+    </footer>
+</body>
+
+</html>
